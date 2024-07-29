@@ -1,3 +1,4 @@
+import { CreateUserRequest } from '@/modules/users/requests/create-user.request';
 import { UserService } from '@/modules/users/services/users.service';
 import { Body, Controller, Get, Post } from '@nestjs/common';
 
@@ -12,6 +13,7 @@ export class UserController {
 
   @Post('register')
   register(@Body() createUserRequest: CreateUserRequest) {
+    // TODO: send email verification code
     return this.userService.create(createUserRequest);
   }
 }
