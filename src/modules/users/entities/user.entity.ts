@@ -1,10 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity } from '@/common/entities/base.entity';
+import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'users' })
-export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class User extends BaseEntity {
   @Column({ type: 'varchar', length: 50, nullable: false })
   email: String;
 
@@ -13,4 +11,7 @@ export class User {
 
   @Column({ type: 'varchar', length: 255, nullable: false })
   name: String;
+
+  @Column({ name: 'is_verified', type: 'bit', default: false })
+  isVerified: boolean;
 }
