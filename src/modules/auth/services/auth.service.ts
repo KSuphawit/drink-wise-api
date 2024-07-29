@@ -34,7 +34,11 @@ export class AuthService {
     );
 
     if (user && isCorrectPasswrod)
-      return { userId: user.id, email: user.email };
+      return {
+        userId: user.id,
+        email: user.email,
+        isVerified: user.isVerified,
+      };
 
     return null;
   }
