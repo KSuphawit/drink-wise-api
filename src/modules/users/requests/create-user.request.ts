@@ -1,4 +1,4 @@
-type CreateUserDto = {
+type CreateUserRequest = {
   email: string;
   password: string;
   name: string;

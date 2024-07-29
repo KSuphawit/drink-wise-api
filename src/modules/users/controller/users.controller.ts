@@ -1,5 +1,5 @@
 import { UserService } from '@/modules/users/services/users.service';
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 
 @Controller('users')
 export class UserController {
@@ -8,5 +8,10 @@ export class UserController {
   @Get()
   findAll() {
     return this.userService.findAll();
+  }
+
+  @Post('register')
+  register(@Body() createUserRequest: CreateUserRequest) {
+    return this.userService.create(createUserRequest);
   }
 }
