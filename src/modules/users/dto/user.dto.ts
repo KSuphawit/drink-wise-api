@@ -1,13 +1,16 @@
-import { User } from '@/modules/users/entities/user.entity';
+import { Exclude } from 'class-transformer';
 
 export class UserDTO {
-  id: string | null;
-  email: string | null;
-  password: string | null;
-  name: string | null;
-  isVerified: boolean | null;
+  id?: string;
+  email?: string;
+  name?: string;
+  isVerified?: boolean;
 
-  constructor(user: User) {
+  @Exclude()
+  password?: string;
+
+  constructor(user) {
+    if (user === undefined) return this;
     this.id = user.id;
     this.email = user.email;
     this.password = user.password;
