@@ -11,14 +11,12 @@ export class UserService {
     @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
 
-  findAll(): Promise<User[]> {
-    return this.usersRepository.find();
+  async findUserByEmail(email: string): Promise<User> {
+    return await this.usersRepository.findOne({ where: { email } });
   }
 
   async create(request: CreateUserRequest): Promise<User> {
-    const isExists = await this.usersRepository.findOne({
-      where: { email: request.email },
-    });
+    const isExists = await this.findUserByEmail(request.email);
 
     if (isExists)
       throw new ConflictException('This email address is already exists');
