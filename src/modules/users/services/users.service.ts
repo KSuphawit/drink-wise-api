@@ -1,5 +1,6 @@
 import { User } from '@/modules/users/entities/user.entity';
 import { CreateUserRequest } from '@/modules/users/requests/create-user.request';
+import { CreateUserResponse } from '@/modules/users/responses/create-user.response';
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
@@ -8,14 +9,14 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User) private usersRepository: Repository<User>,
+    @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
   async findUserByEmail(email: string): Promise<User> {
-    return await this.usersRepository.findOne({ where: { email } });
+    return await this.userRepository.findOne({ where: { email } });
   }
 
-  async create(request: CreateUserRequest): Promise<User> {
+  async create(request: CreateUserRequest): Promise<CreateUserResponse> {
     const isExists = await this.findUserByEmail(request.email);
 
     if (isExists)
@@ -23,13 +24,19 @@ export class UserService {
 
     const hashedPassword = await bcrypt.hash(request.password, 10);
 
-    const user = this.usersRepository.create({
+    const user = this.userRepository.create({
       email: request.email,
       password: hashedPassword,
       name: request.name,
       isVerified: false,
     });
 
-    return await this.usersRepository.save(user);
+    const newUser = await this.userRepository.save(user);
+
+    return {
+      userId: newUser.id,
+      email: newUser.email,
+      name: newUser.name,
+    };
   }
 }
