@@ -1,5 +1,4 @@
 import { LoginRequest } from '@/modules/auth/requests/login.request';
-import { LoginResponse } from '@/modules/auth/responses/login.response';
 import { UserService } from '@/modules/users/services/users.service';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -12,7 +11,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async authenticate(request: LoginRequest): Promise<LoginResponse> {
+  async authenticate(request: LoginRequest): Promise<string> {
     const user = await this.verifyUser(request);
     if (!user) throw new UnauthorizedException();
 
@@ -23,7 +22,7 @@ export class AuthService {
       email: user.email,
     });
 
-    return { accessToken };
+    return accessToken;
   }
 
   private async verifyUser(request: LoginRequest): Promise<SignInData | null> {

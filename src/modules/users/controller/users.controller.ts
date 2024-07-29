@@ -1,4 +1,5 @@
 import { CreateUserRequest } from '@/modules/users/requests/create-user.request';
+import { CreateUserResponse } from '@/modules/users/responses/create-user.response';
 import { UserService } from '@/modules/users/services/users.service';
 import { Body, Controller, Post } from '@nestjs/common';
 
@@ -7,8 +8,10 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('register')
-  register(@Body() request: CreateUserRequest) {
-    // TODO: send email verification code
-    return this.userService.create(request);
+  async register(
+    @Body() request: CreateUserRequest,
+  ): Promise<CreateUserResponse> {
+    const user = await this.userService.create(request);
+    return new CreateUserResponse(user);
   }
 }

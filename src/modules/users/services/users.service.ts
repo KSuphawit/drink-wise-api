@@ -1,6 +1,6 @@
+import { UserDTO } from '@/modules/users/dto/user.dto';
 import { User } from '@/modules/users/entities/user.entity';
 import { CreateUserRequest } from '@/modules/users/requests/create-user.request';
-import { CreateUserResponse } from '@/modules/users/responses/create-user.response';
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
@@ -12,11 +12,12 @@ export class UserService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  async findUserByEmail(email: string): Promise<User> {
-    return await this.userRepository.findOne({ where: { email } });
+  async findUserByEmail(email: string): Promise<UserDTO | null> {
+    const user = await this.userRepository.findOne({ where: { email } });
+    return user ? new UserDTO(user) : null;
   }
 
-  async create(request: CreateUserRequest): Promise<CreateUserResponse> {
+  async create(request: CreateUserRequest): Promise<UserDTO> {
     const isExists = await this.findUserByEmail(request.email);
 
     if (isExists)
@@ -33,10 +34,6 @@ export class UserService {
 
     const newUser = await this.userRepository.save(user);
 
-    return {
-      userId: newUser.id,
-      email: newUser.email,
-      name: newUser.name,
-    };
+    return new UserDTO(newUser);
   }
 }
