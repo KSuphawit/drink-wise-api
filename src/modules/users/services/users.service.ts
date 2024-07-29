@@ -17,6 +17,11 @@ export class UserService {
     return user ? new UserDTO(user) : null;
   }
 
+  async findUserById(id: string): Promise<UserDTO | null> {
+    const user = await this.userRepository.findOne({ where: { id } });
+    return user ? new UserDTO(user) : null;
+  }
+
   async create(request: CreateUserRequest): Promise<UserDTO> {
     const isExists = await this.findUserByEmail(request.email);
 
