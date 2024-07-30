@@ -27,12 +27,12 @@ export class AuthService {
 
   private async verifyUser(request: LoginRequest): Promise<SignInData | null> {
     const user = await this.userService.findUserByEmail(request.email);
-    const isCorrectPasswrod = await bcrypt.compare(
+    const isPasswordCorrect = await bcrypt.compare(
       request.password,
       user.password,
     );
 
-    if (user && isCorrectPasswrod)
+    if (user && isPasswordCorrect)
       return {
         userId: user.id,
         email: user.email,
