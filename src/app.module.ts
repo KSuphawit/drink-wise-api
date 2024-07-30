@@ -2,7 +2,7 @@ import { AppController } from '@/app.controller';
 import { AppService } from '@/app.service';
 import { Module } from '@nestjs/common';
 
-import AuthModule from '@/modules/auth/auth.module';
+import AuthModule from '@/auth/auth.module';
 import DrinkingModule from '@/modules/drinking/drinking.module';
 import UserModule from '@/modules/user/user.module';
 import InfrastructureModule from '@/providers/infrastructure.module';

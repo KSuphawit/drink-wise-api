@@ -1,4 +1,4 @@
-import { LoginRequest } from '@/modules/auth/requests/login.request';
+import { LoginRequest } from '@/auth/requests/login.request';
 import { UserService } from '@/modules/user/services/user.service';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
