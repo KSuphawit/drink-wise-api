@@ -1,6 +1,6 @@
-import { UserDTO } from '@/modules/users/dto/user.dto';
-import { User } from '@/modules/users/entities/user.entity';
-import { CreateUserRequest } from '@/modules/users/requests/create-user.request';
+import { UserDTO } from '@/modules/user/dto/user.dto';
+import { User } from '@/modules/user/entities/user.entity';
+import { CreateUserRequest } from '@/modules/user/requests/create-user.request';
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';

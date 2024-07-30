@@ -1,5 +1,5 @@
 import { LoginRequest } from '@/modules/auth/requests/login.request';
-import { UserService } from '@/modules/users/services/users.service';
+import { UserService } from '@/modules/user/services/user.service';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';

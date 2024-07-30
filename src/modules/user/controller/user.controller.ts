@@ -1,9 +1,9 @@
 import { User } from '@/common/decorators/user.decorator';
 import { AuthGuard } from '@/common/guards/auth.guard';
-import { UserDTO } from '@/modules/users/dto/user.dto';
-import UserSecureInterceptor from '@/modules/users/interceptors/user-secure.interceptor';
-import { CreateUserRequest } from '@/modules/users/requests/create-user.request';
-import { UserService } from '@/modules/users/services/users.service';
+import { UserDTO } from '@/modules/user/dto/user.dto';
+import UserSecureInterceptor from '@/modules/user/interceptors/user-secure.interceptor';
+import { CreateUserRequest } from '@/modules/user/requests/create-user.request';
+import { UserService } from '@/modules/user/services/user.service';
 import {
   Body,
   Controller,

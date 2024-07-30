@@ -1,7 +1,7 @@
 import { AuthConfiguration } from '@/config/auth.configuration';
 import { AuthController } from '@/modules/auth/controller/auth.controller';
 import { AuthService } from '@/modules/auth/services/auth.service';
-import { UsersModule } from '@/modules/users/users.module';
+import UserModule from '@/modules/user/user.module';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 
@@ -15,7 +15,7 @@ import { JwtModule } from '@nestjs/jwt';
       }),
       inject: [AuthConfiguration],
     }),
-    UsersModule,
+    UserModule,
   ],
   controllers: [AuthController],
   providers: [AuthService],

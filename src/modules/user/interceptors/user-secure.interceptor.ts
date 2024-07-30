@@ -1,4 +1,4 @@
-import { UserDTO } from '@/modules/users/dto/user.dto';
+import { UserDTO } from '@/modules/user/dto/user.dto';
 import {
   CallHandler,
   ExecutionContext,

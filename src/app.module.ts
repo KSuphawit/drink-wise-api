@@ -3,7 +3,7 @@ import { AppService } from '@/app.service';
 import { Module } from '@nestjs/common';
 
 import AuthModule from '@/modules/auth/auth.module';
-import { UsersModule } from '@/modules/users/users.module';
+import UserModule from '@/modules/user/user.module';
 import InfrastructureModule from '@/providers/infrastructure.module';
 import { ConfigifyModule } from '@itgorillaz/configify';
 
@@ -12,7 +12,7 @@ import { ConfigifyModule } from '@itgorillaz/configify';
     ConfigifyModule.forRootAsync(),
     InfrastructureModule,
     AuthModule,
-    UsersModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
