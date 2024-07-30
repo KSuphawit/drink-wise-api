@@ -1,4 +1,4 @@
-import { DrinkingService } from '@/modules/drinking/services/drinking.service';
+import { DrinkingService } from '@/modules/drinking/drinking.service';
 import { Controller, Get, Query } from '@nestjs/common';
 
 @Controller('drinking')

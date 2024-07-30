@@ -4,7 +4,7 @@ import { Module } from '@nestjs/common';
 
 import AuthModule from '@/auth/auth.module';
 import DrinkingModule from '@/modules/drinking/drinking.module';
-import UserModule from '@/modules/user/user.module';
+import UserModule from '@/modules/users/user.module';
 import InfrastructureModule from '@/providers/infrastructure.module';
 import { ConfigifyModule } from '@itgorillaz/configify';
 

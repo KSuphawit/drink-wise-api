@@ -1,13 +1,13 @@
-import { UserDTO } from '@/modules/user/dto/user.dto';
-import { User } from '@/modules/user/entities/user.entity';
-import { CreateUserRequest } from '@/modules/user/requests/create-user.request';
+import { CreateUserRequest } from '@/modules/users/dto/requests/create-user.request';
+import { UserDTO } from '@/modules/users/dto/user.dto';
+import { User } from '@/modules/users/entities/user.entity';
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class UserService {
+export class UsersService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}

@@ -1,4 +1,4 @@
-import { UserDTO } from '@/modules/user/dto/user.dto';
+import { UserDTO } from '@/modules/users/dto/user.dto';
 import {
   CallHandler,
   ExecutionContext,
@@ -9,7 +9,7 @@ import { plainToInstance } from 'class-transformer';
 import { Observable, map } from 'rxjs';
 
 @Injectable()
-export default class UserSecureInterceptor implements NestInterceptor {
+export class UsersTransformInterceptor implements NestInterceptor {
   intercept(
     context: ExecutionContext,
     next: CallHandler<UserDTO | UserDTO[]>,
