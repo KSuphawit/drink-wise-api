@@ -9,6 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new ResponseInterceptor());
+  app.setGlobalPrefix('api', { exclude: ['auth/(.*)'] });
   const appConfig = app.get(AppConfiguration);
   await app.listen(appConfig.port, appConfig.host);
 }

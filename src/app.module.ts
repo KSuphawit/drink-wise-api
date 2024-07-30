@@ -3,6 +3,7 @@ import { AppService } from '@/app.service';
 import { Module } from '@nestjs/common';
 
 import AuthModule from '@/modules/auth/auth.module';
+import DrinkingModule from '@/modules/drinking/drinking.module';
 import UserModule from '@/modules/user/user.module';
 import InfrastructureModule from '@/providers/infrastructure.module';
 import { ConfigifyModule } from '@itgorillaz/configify';
@@ -13,6 +14,7 @@ import { ConfigifyModule } from '@itgorillaz/configify';
     InfrastructureModule,
     AuthModule,
     UserModule,
+    DrinkingModule,
   ],
   controllers: [AppController],
   providers: [AppService],

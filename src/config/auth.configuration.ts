@@ -7,7 +7,6 @@ export class AuthConfiguration {
   @Value('JWT_SECRET')
   jwtSecret: string;
 
-  @IsNotEmpty()
   @Value('AUTH_EXPIRE_DURATION')
-  expireDuration: string;
+  expireDuration: string = '1d';
 }
