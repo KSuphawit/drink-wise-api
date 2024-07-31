@@ -1,4 +1,4 @@
-import GoogleCloudModule from '@/external/googlecloud/googlecloud.module';
+import GoogleCloudModule from '@/external/google-cloud/google-cloud.module';
 import { DrinkingController } from '@/modules/drinking/drinking.controller';
 import { DrinkingService } from '@/modules/drinking/drinking.service';
 import { Module } from '@nestjs/common';

@@ -1,4 +1,4 @@
-import GooglePlacesService from '@/external/googlecloud/services/googleplces.service';
+import GooglePlacesService from '@/external/google-cloud/services/google-plces.service';
 import { Module } from '@nestjs/common';
 
 @Module({

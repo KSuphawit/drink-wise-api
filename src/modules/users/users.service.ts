@@ -1,5 +1,5 @@
 import { CreateUserRequest } from '@/modules/users/dto/requests/create-user.request';
-import { UserDTO } from '@/modules/users/dto/user.dto';
+import { UserDto } from '@/modules/users/dto/user.dto';
 import { User } from '@/modules/users/entities/user.entity';
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,17 +12,17 @@ export class UsersService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  async findUserByEmail(email: string): Promise<UserDTO | null> {
+  async findUserByEmail(email: string): Promise<UserDto | null> {
     const user = await this.userRepository.findOne({ where: { email } });
-    return user ? new UserDTO(user) : null;
+    return user ? new UserDto(user) : null;
   }
 
-  async findUserById(id: string): Promise<UserDTO | null> {
+  async findUserById(id: string): Promise<UserDto | null> {
     const user = await this.userRepository.findOne({ where: { id } });
-    return user ? new UserDTO(user) : null;
+    return user ? new UserDto(user) : null;
   }
 
-  async create(request: CreateUserRequest): Promise<UserDTO> {
+  async create(request: CreateUserRequest): Promise<UserDto> {
     const isExists = await this.findUserByEmail(request.email);
 
     if (isExists)
@@ -39,6 +39,6 @@ export class UsersService {
 
     const newUser = await this.userRepository.save(user);
 
-    return new UserDTO(newUser);
+    return new UserDto(newUser);
   }
 }

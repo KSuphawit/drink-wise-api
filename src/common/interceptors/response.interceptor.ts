@@ -1,4 +1,4 @@
-import { BaseResponse } from '@/common/reponses/base.response';
+import { BaseResponse } from '@/common/dto/base.response';
 import {
   CallHandler,
   ExecutionContext,
