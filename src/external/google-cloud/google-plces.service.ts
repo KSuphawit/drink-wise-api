@@ -10,7 +10,7 @@ import { AxiosResponse } from 'axios';
 import { lastValueFrom } from 'rxjs';
 
 @Injectable()
-export default class GooglePlacesService {
+export class GooglePlacesService {
   private readonly API_URL: string;
   private readonly API_KEY: string;
 
