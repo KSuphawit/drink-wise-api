@@ -1,6 +1,5 @@
 import {
   BeforeInsert,
-  BeforeSoftRemove,
   BeforeUpdate,
   CreateDateColumn,
   DeleteDateColumn,
@@ -35,10 +34,5 @@ export abstract class BaseEntity {
   @BeforeUpdate()
   setUpdatedAt() {
     this.updatedAt = new Date();
-  }
-
-  @BeforeSoftRemove()
-  setDeletedAt() {
-    this.deletedAt = new Date();
   }
 }
