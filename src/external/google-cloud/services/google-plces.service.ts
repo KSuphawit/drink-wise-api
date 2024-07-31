@@ -2,8 +2,8 @@ import { GoogleCloudConfiguration } from '@/config/googlecloud.configuration';
 import {
   NearbyPlace,
   NearbySearchResponse,
-} from '@/external/google-cloud/reponses/google-places.response';
-import { NearbySearchRequest } from '@/external/google-cloud/requests/google-places.request';
+} from '@/external/google-cloud/dto/reponses/google-places.response';
+import { NearbySearchRequest } from '@/external/google-cloud/dto/requests/google-places.request';
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';

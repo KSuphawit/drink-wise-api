@@ -2,7 +2,7 @@ import {
   FieldMask,
   NearbySearchRequest,
   PlaceTypes,
-} from '@/external/google-cloud/requests/google-places.request';
+} from '@/external/google-cloud/dto/requests/google-places.request';
 import GooglePlacesService from '@/external/google-cloud/services/google-plces.service';
 import { Injectable } from '@nestjs/common';
 
