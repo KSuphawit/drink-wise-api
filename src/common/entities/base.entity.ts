@@ -1,12 +1,11 @@
+import * as dayjs from 'dayjs';
 import {
   BeforeInsert,
   BeforeUpdate,
   CreateDateColumn,
-  DeleteDateColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { v4 as uuidv4 } from 'uuid';
 
 export abstract class BaseEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -18,21 +17,13 @@ export abstract class BaseEntity {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deleted_at' })
-  deletedAt: Date;
-
-  @BeforeInsert()
-  setId() {
-    if (!this.id) this.id = uuidv4();
-  }
-
   @BeforeInsert()
   setCreatedAt() {
-    this.createdAt = new Date();
+    this.createdAt = dayjs().toDate();
   }
 
   @BeforeUpdate()
   setUpdatedAt() {
-    this.updatedAt = new Date();
+    this.updatedAt = dayjs().toDate();
   }
 }
