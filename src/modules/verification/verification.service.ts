@@ -23,47 +23,50 @@ export class VerificationService {
         'The email address is already in use by another account.',
       );
 
-    const existing = await this.verificationRepository.findOne({
+    const existingVerification = await this.verificationRepository.findOne({
       where: { email },
     });
 
-    if (existing) {
-      if (existing.isVerified) {
-        throw new ConflictException('The email address is already verified.');
-      }
-      return this.resendEmailVerification(existing);
+    if (existingVerification && existingVerification.isVerified) {
+      throw new ConflictException('Email is already verified.');
     }
 
-    const verification = await this.create(email);
+    if (existingVerification && !existingVerification.isVerified) {
+      await this.verificationRepository.delete({ email });
+    }
+
+    const verification = this.verificationRepository.create({
+      email,
+      isVerified: false,
+      referenceCode: this.generateReferenceCode(),
+      otp: this.generateOtp(),
+      expireAt: dayjs()
+        .add(
+          this.verificationConfig.expireDuration,
+          this.verificationConfig.expireUnit,
+        )
+        .toDate(),
+    });
+
+    await this.verificationRepository.save(verification);
     // TODO send email
 
     return { referenceCode: verification.referenceCode, otp: verification.otp };
   }
 
-  private async resendEmailVerification(
-    verification: Verification,
-  ): Promise<VerifyEmailDto> {
-    const updated = await this.verificationRepository.save({
+  async verifyEmail(email: string, otp: string, referenceCode: string) {
+    const verification = await this.verificationRepository.findOne({
+      where: { email, otp, referenceCode },
+    });
+
+    if (verification.expireAt < dayjs().toDate()) {
+      throw new Error('OTP expired');
+    }
+
+    await this.verificationRepository.save({
       ...verification,
-      referenceCode: this.generateReferenceCode(),
-      otp: this.generateOtp(),
-      expireAt: this.calculateExpiryDate(),
+      isVerified: true,
     });
-
-    // TODO send email
-
-    return { referenceCode: updated.referenceCode, otp: updated.otp };
-  }
-
-  private async create(email: string): Promise<Verification> {
-    const verification = this.verificationRepository.create({
-      email,
-      referenceCode: this.generateReferenceCode(),
-      otp: this.generateOtp(),
-      isVerified: false,
-      expireAt: this.calculateExpiryDate(),
-    });
-    return this.verificationRepository.save(verification);
   }
 
   private generateOtp(): string {
@@ -72,14 +75,5 @@ export class VerificationService {
 
   private generateReferenceCode(): string {
     return crypto.randomBytes(3).toString('hex');
-  }
-
-  private calculateExpiryDate(): Date {
-    return dayjs()
-      .add(
-        this.verificationConfig.expireDuration,
-        this.verificationConfig.expireUnit,
-      )
-      .toDate();
   }
 }
