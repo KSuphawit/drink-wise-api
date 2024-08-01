@@ -1,5 +1,4 @@
 import { VerificationConfiguration } from '@/config/verification.configuration';
-import { UsersService } from '@/modules/users/users.service';
 import { Verification } from '@/modules/verification/entities/verification.entity';
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,22 +12,17 @@ export class VerificationService {
     @InjectRepository(Verification)
     private readonly verificationRepository: Repository<Verification>,
     private readonly verificationConfig: VerificationConfiguration,
-    private readonly usersService: UsersService,
   ) {}
 
   async requestEmailVerification(email: string): Promise<VerifyEmailDto> {
-    const isUserExists = await this.usersService.findUserByEmail(email);
-    if (isUserExists)
-      throw new ConflictException(
-        'The email address is already in use by another account.',
-      );
-
     const existingVerification = await this.verificationRepository.findOne({
       where: { email },
     });
 
     if (existingVerification && existingVerification.isVerified) {
-      throw new ConflictException('Email is already verified.');
+      throw new ConflictException(
+        'The email address is already in use by another account.',
+      );
     }
 
     if (existingVerification && !existingVerification.isVerified) {
